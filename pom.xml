@@ -572,6 +572,7 @@ limitations under the License.
 						<exclude>.git/**</exclude>
 						<exclude>logs/**</exclude>
 						<exclude>**/.*</exclude>
+						<exclude>README.md</exclude>
 					</excludes>
 				</configuration>
 				<executions>
