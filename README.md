@@ -1,11 +1,17 @@
-# synthesis-processor
+# Synthesis Processor
+This repository contains the Synthesis Processor defined as a set of REST services. 
+These REST services are used by the CHOReVOLUTIONS Studio during the wizard for synthesizing the artefacts Binding Components, Adapters, Security Filters and Coordination Delegates.
 
-Generate Tomcat (default) without change configuration.properties and without copy resources
-   mvn clean verify
+## Requirements
 
-Generate Tomcat with embedded resources
-   mvn clean verify -Pembedded-resources,build-tomcat
+* [Apache Maven 3.3.3+](https://maven.apache.org/install.html)
+* [Java 8+](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-Generate Tomcat with generated resources
-   mvn clean verify -Pgenerated-resources,build-tomcat
+### Building
+
+To build the project and generate the bundle use Maven
+
+    mvn clean package
+
+## Usage
 
