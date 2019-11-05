@@ -31,20 +31,20 @@ import eu.chorevolution.synthesisprocessor.rest.business.model.SynthesisProcesso
 
 @Service
 public class SynthesisProcessorImpl implements SynthesisProcessor {
-	
+
 	@Value("#{cfg.ARTIFACT_HOME_REPOSITORY}")
 	private String artifactHomeRepository;
-	
+
 	@Autowired
 	private SynthesisProcessorUtils synthesisProcessorUtils;
-	
+
 	@Override
 	public byte[] download(String choreographyName, String artifactType, String artifactName)
-			throws SynthesisProcessorBusinessException{
+			throws SynthesisProcessorBusinessException {
 		try {
 
-			File artifact = new File(artifactHomeRepository + File.separator + choreographyName
-					+ File.separator + artifactType + File.separator + artifactName);
+			File artifact = new File(artifactHomeRepository + File.separator + choreographyName + File.separator
+					+ artifactType + File.separator + artifactName);
 
 			if (!artifact.exists()) {
 				throw new SynthesisProcessorBusinessException("artifact not found : " + artifactName);
@@ -61,15 +61,27 @@ public class SynthesisProcessorImpl implements SynthesisProcessor {
 	public String upload(String choreographyName, String artifactType, String artifactName, InputStream artifactContent)
 			throws SynthesisProcessorBusinessException {
 		try {
-			String name= artifactName.replace("."+FilenameUtils.getExtension(artifactName), "");
-			String extenstion = FilenameUtils.getExtension(artifactName);
+			String name = artifactName.replace("." + FilenameUtils.getExtension(artifactName), "");
+			String extension = FilenameUtils.getExtension(artifactName);
 			byte[] content = IOUtils.toByteArray(artifactContent);
-
-			return synthesisProcessorUtils.createArtifactURI(
-					choreographyName, SynthesisProcessorComponentType.PROSUMER,
-					name, "."+extenstion, content);
+			
+			return synthesisProcessorUtils.createArtifactURI(choreographyName, getSynthesisProcessorComponentType(artifactType),
+					name, "." + extension, content);
 		} catch (Exception e) {
 			throw new SynthesisProcessorBusinessException("error upload artifact : " + artifactName, e);
+		}
+	}
+	
+	private SynthesisProcessorComponentType getSynthesisProcessorComponentType(String artifactType) {
+		switch (artifactType) {
+		case "prosumer":
+			return SynthesisProcessorComponentType.PROSUMER;
+		case "adapter":
+			return SynthesisProcessorComponentType.AD;
+		case "bindingcomponent":
+			return SynthesisProcessorComponentType.BC;
+		default:
+			return SynthesisProcessorComponentType.PROSUMER;
 		}
 	}
 }
