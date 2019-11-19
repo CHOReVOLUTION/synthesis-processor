@@ -13,5 +13,3 @@ To build the project and generate the bundle use Maven
 
     mvn clean package
 
-## Usage
-
