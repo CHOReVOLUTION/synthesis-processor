@@ -9,7 +9,7 @@ These REST services are used by the CHOReVOLUTIONS Studio during the wizard for 
 
 ### Building
 
-To build the project and generate the bundle use Maven
+To build the project and generate the bundle use the following Maven command
 
     mvn clean package
 
